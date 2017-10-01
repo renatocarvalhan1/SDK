@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CarenetSDK_Example' do
+  pod 'CarenetSDK', :path => '../'
+
+  target 'CarenetSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
