@@ -1,33 +1,27 @@
-# OS X
+# the build
+Build
+build
+# DerivedData
+Docs/API
+
+# temp nibs and swap files
+*~.nib
+*.swp
+*.orig
+
+# OS X folder attributes
 .DS_Store
 
-# Xcode
-build/
-*.pbxuser
-!default.pbxuser
+# user-specific XCode stuff
 *.mode1v3
-!default.mode1v3
 *.mode2v3
-!default.mode2v3
+*.pbxuser
 *.perspectivev3
-!default.perspectivev3
-xcuserdata/
+*.xcuserdatad
 *.xccheckout
-profile
-*.moved-aside
+
+# CocoaPods
+Pods
+CarenetSDK.xcodeproj/xcshareddata/
+CarenetSDK.xcworkspace/xcshareddata/xcschemes/
 DerivedData
-*.hmap
-*.ipa
-
-# Bundler
-.bundle
-
-Carthage
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
-# 
-# Note: if you ignore the Pods directory, make sure to uncomment
-# `pod install` in .travis.yml
-#
-# Pods/

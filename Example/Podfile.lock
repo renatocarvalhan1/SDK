@@ -1,0 +1,16 @@
+PODS:
+  - CarenetSDK (0.1.0)
+
+DEPENDENCIES:
+  - CarenetSDK (from `../`)
+
+EXTERNAL SOURCES:
+  CarenetSDK:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CarenetSDK: 7ae8ff4ac05f0c8caaef8eb75f1e850daeaff740
+
+PODFILE CHECKSUM: 6b8296219acdea2f19206a3c4d678db0a542e824
+
+COCOAPODS: 1.3.1

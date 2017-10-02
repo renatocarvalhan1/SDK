@@ -32,11 +32,12 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'CarenetSDK/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'CarenetSDK' => ['CarenetSDK/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'CarenetSDK' => ['CarenetSDK/Assets/*.{png,jpeg,jpg,storyboard,xib}']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+   s.frameworks = 'UIKit'
+  s.dependency "RestKit"
+  s.dependency "JVFloatLabeledTextField"
 end
