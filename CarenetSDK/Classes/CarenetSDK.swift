@@ -17,11 +17,12 @@ public class CarentSDK: NSObject {
     
     var baseUrl: String = {
         "http://dev.crnt.com.br"
-        //        "http://api.pareaqui.com.br"
     }()
     
     var bundle: Bundle = {
-        Bundle(for: CarentSDK.self)
+        let bundleurl = Bundle(for: CarentSDK.self).url(forResource: "CarenetSDK", withExtension: "bundle")
+        
+        return Bundle.init(url: bundleurl!)!
     }()
     
     var deviceID: String = {
@@ -29,7 +30,6 @@ public class CarentSDK: NSObject {
     }()
     
     public func startSDKWithClientId() {
-        
         let storyboard = UIStoryboard(name: "SDK", bundle: bundle)
         let centerController = UINavigationController(rootViewController: storyboard.instantiateInitialViewController()!)
         
