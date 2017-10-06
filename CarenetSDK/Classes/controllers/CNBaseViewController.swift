@@ -12,6 +12,7 @@ public class CNBaseViewController: UIViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "Dispositivos"
     }
 }

@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import FirebaseCommunity
 
-public class CarentSDK: NSObject {
+public class CarenetSDK: NSObject {
     
-    public static var shared: CarentSDK = {
-        let instance = CarentSDK()
+    public static var shared: CarenetSDK = {
+        let instance = CarenetSDK()
         return instance
     }()
     
@@ -20,7 +21,7 @@ public class CarentSDK: NSObject {
     }()
     
     var bundle: Bundle = {
-        let bundleurl = Bundle(for: CarentSDK.self).url(forResource: "CarenetSDK", withExtension: "bundle")
+        let bundleurl = Bundle(for: CarenetSDK.self).url(forResource: "CarenetSDK", withExtension: "bundle")
         
         return Bundle.init(url: bundleurl!)!
     }()
@@ -30,6 +31,13 @@ public class CarentSDK: NSObject {
     }()
     
     public func startSDKWithClientId() {
+        
+    
+        let filePath = bundle.path(forResource: "GoogleService-Info", ofType: "plist")!
+        if let options = FirebaseOptions(contentsOfFile: filePath) {
+            FirebaseApp.configure(options: options)
+        }
+        
         let storyboard = UIStoryboard(name: "SDK", bundle: bundle)
         let centerController = UINavigationController(rootViewController: storyboard.instantiateInitialViewController()!)
         

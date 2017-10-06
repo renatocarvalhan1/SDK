@@ -28,16 +28,18 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/renatocarvalhan1/CarenetSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'CarenetSDK/Classes/**/*'
   
   s.resource_bundles = {
-    'CarenetSDK' => ['CarenetSDK/Assets/*.{png,jpeg,jpg,storyboard,xib}']
+    'CarenetSDK' => ['CarenetSDK/Assets/**/*']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
    s.frameworks = 'UIKit'
-  s.dependency "RestKit"
-  s.dependency "JVFloatLabeledTextField"
+    s.dependency "FirebaseCommunity/Database"
+    s.dependency "FirebaseCommunity/Auth"
+    s.dependency "FirebaseCommunity/Storage"
+    s.dependency "JVFloatLabeledTextField"
 end

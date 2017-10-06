@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1075987006382-h8b9ink9bagkbiem0u8v33edr1sjlra6.apps.googleusercontent.com</string>
+	<string>1075987006382-eok1bk7lf5ivb4jsjmukg0g629fjpqrp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1075987006382-h8b9ink9bagkbiem0u8v33edr1sjlra6</string>
+	<string>com.googleusercontent.apps.1075987006382-eok1bk7lf5ivb4jsjmukg0g629fjpqrp</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBugflzrJ0I5o8Y8Lm3Lmjgh4HlW5DZVP8</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.cocoapods.CarenetSDK</string>
+	<string>br.com.carenet.CarenetSDK-Test</string>
 	<key>PROJECT_ID</key>
 	<string>crnt-playground</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1075987006382:ios:327efed0e899ea50</string>
+	<string>1:1075987006382:ios:17829e565d83c950</string>
 	<key>DATABASE_URL</key>
 	<string>https://crnt-playground.firebaseio.com</string>
 </dict>

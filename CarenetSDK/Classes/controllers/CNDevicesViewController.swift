@@ -17,7 +17,9 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
 
         // Do any additional setup after loading the view.
         
-        title = "Dispositivos"
+        
+        tableView.register(UINib(nibName: "CNDeviceCell", bundle: CarenetSDK.shared.bundle), forCellReuseIdentifier: "CNDeviceCell")
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     func setupNavBar() {
@@ -28,12 +30,12 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 0
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
