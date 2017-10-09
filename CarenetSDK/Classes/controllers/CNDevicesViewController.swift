@@ -14,17 +14,25 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         
         tableView.register(UINib(nibName: "CNDeviceCell", bundle: CarenetSDK.shared.bundle), forCellReuseIdentifier: "CNDeviceCell")
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .automatic
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
-    func setupNavBar() {
+    override func viewDidAppear(_ animated: Bool) {
+//        let warningController = storyboard?.instantiateViewController(withIdentifier: "CNWarningSync") as! CNWarningSyncViewController
+//
+//        warningController.modalPresentationStyle = .overCurrentContext
+//        warningController.modalTransitionStyle = .crossDissolve
+//
+//        present(warningController, animated: true, completion: nil)
     }
-    
     
     // MARK: - UITableViewDataSource
     
@@ -39,17 +47,15 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CNDeviceCell" , for: indexPath) as! CNDeviceCell
+        return cell
     }
     
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 68
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

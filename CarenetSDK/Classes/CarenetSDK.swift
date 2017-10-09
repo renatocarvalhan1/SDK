@@ -33,10 +33,7 @@ public class CarenetSDK: NSObject {
     public func startSDKWithClientId() {
         
     
-        let filePath = bundle.path(forResource: "GoogleService-Info", ofType: "plist")!
-        if let options = FirebaseOptions(contentsOfFile: filePath) {
-            FirebaseApp.configure(options: options)
-        }
+        FirebaseApp.configure()
         
         let storyboard = UIStoryboard(name: "SDK", bundle: bundle)
         let centerController = UINavigationController(rootViewController: storyboard.instantiateInitialViewController()!)

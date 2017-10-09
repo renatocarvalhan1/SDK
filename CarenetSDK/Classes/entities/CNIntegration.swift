@@ -8,5 +8,7 @@
 import UIKit
 
 class CNIntegration: CNBaseEntity {
-
+    
+    var iconURL: String?
+    var integrationName: String?
 }

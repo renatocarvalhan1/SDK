@@ -4,6 +4,7 @@ PODS:
     - FirebaseCommunity/Database
     - FirebaseCommunity/Storage
     - JVFloatLabeledTextField
+    - VisualEffectView
   - FirebaseCommunity/Auth (0.1.3):
     - FirebaseCommunity/Core
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
@@ -18,19 +19,20 @@ PODS:
   - FirebaseCommunity/Storage (0.1.3):
     - FirebaseCommunity/Core
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.2):
-    - GoogleToolboxForMac/Defines (= 2.1.2)
-  - GoogleToolboxForMac/Defines (2.1.2)
-  - GoogleToolboxForMac/NSData+zlib (2.1.2):
-    - GoogleToolboxForMac/Defines (= 2.1.2)
-  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.2):
-    - GoogleToolboxForMac/DebugUtils (= 2.1.2)
-    - GoogleToolboxForMac/Defines (= 2.1.2)
-    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.2)
-  - GoogleToolboxForMac/NSString+URLArguments (2.1.2)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - GTMSessionFetcher/Core (1.1.12)
   - JVFloatLabeledTextField (1.2.1)
   - leveldb-library (1.18.3)
+  - VisualEffectView (3.0.0)
 
 DEPENDENCIES:
   - CarenetSDK (from `../`)
@@ -40,13 +42,14 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  CarenetSDK: 8ed147f7cfb0ae8ee9f932ffdcea8c73b356f85c
+  CarenetSDK: f8e35a9c695b2c720b23d706a603d502d2b0f9a2
   FirebaseCommunity: 577bff60785dfe3fb214c8d3993477fc44286fb6
-  GoogleToolboxForMac: 8cbe94fde2a36f60091329890dbcd8cdb2753c48
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
+  VisualEffectView: d47d295c68bf1b8648aa8e7d6eb4acf6dc18ea12
 
-PODFILE CHECKSUM: fd9147875f8e3e79056c086fd56dba4a1d4c4a1e
+PODFILE CHECKSUM: 502f4ae72100e09507f62ef78f5db80beb3a0c43
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

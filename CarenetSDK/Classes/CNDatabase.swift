@@ -35,13 +35,13 @@ class CNDatabase: NSObject {
         return storage().reference()
     }
     
-    // Mark: config database references
+    // Mark: database references
     static func integrationDatabaseReference() -> DatabaseReference {
         return databaseReference().child("integration")
     }
     
     static func devicesDatabaseReference(integration: String) -> DatabaseReference {
-        return databaseReference().child("device").child(integration)
+        return databaseReference().child("devices").child(integration)
     }
     
     static func userDevicesDatabaseReference() -> DatabaseReference {

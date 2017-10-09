@@ -9,4 +9,5 @@ import UIKit
 
 class CNDevices: CNBaseEntity {
 
+    
 }

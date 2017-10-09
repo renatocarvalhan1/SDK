@@ -42,4 +42,5 @@ TODO: Add long description of the pod here.
     s.dependency "FirebaseCommunity/Auth"
     s.dependency "FirebaseCommunity/Storage"
     s.dependency "JVFloatLabeledTextField"
+    s.dependency "VisualEffectView"
 end

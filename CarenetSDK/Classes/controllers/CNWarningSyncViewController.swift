@@ -6,29 +6,60 @@
 //
 
 import UIKit
+import VisualEffectView
 
 class CNWarningSyncViewController: CNBaseViewController {
+    
+    @IBOutlet var centerView: UIView!
+    @IBOutlet var viewWithOneButton: UIView!
+    @IBOutlet var viewWithTwoButtons: UIView!
+    
+    @IBOutlet var blurView: VisualEffectView!{
+        didSet {
+            blurView.colorTint = UIColor.black
+            blurView.colorTintAlpha = 0.2
+            blurView.blurRadius = 5
+            blurView.scale = 1
+        }
+    }
+    
+    var effect: UIVisualEffect!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        effect = blurView.effect
+        blurView.effect = nil
+        
+        animateIn()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidLayoutSubviews() {
+        centerView.layer.cornerRadius = 5
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func animateIn(){
+        centerView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        centerView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blurView.effect = self.effect
+            self.centerView.alpha = 1
+            self.centerView.transform = CGAffineTransform.identity
+        }
     }
-    */
-
+    
+    func animateOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.blurView.effect = nil
+            self.centerView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.centerView.alpha = 0
+            
+        }) { (finished) in
+            self.centerView.removeFromSuperview()
+        }
+    }
+    
+    @IBAction func close(_ sender: Any) {
+        animateOut()
+    }
 }
