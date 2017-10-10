@@ -10,6 +10,9 @@ import FirebaseCommunity
 
 class CNDatabase: NSObject {
     
+    static var firebaseDatabase: Database?
+    static var keepSynchedFlag = false
+    
     // Mark: root references
     static func auth() -> Auth {
         return Auth.auth()
@@ -20,6 +23,15 @@ class CNDatabase: NSObject {
     }
     
     static func database() -> Database {
+        
+//        if firebaseDatabase == nil {
+//            firebaseDatabase = Database.database()
+//        }
+//        
+//        if currentUser() != nil && !keepSynchedFlag {
+//            firebaseDatabase?.reference().child("users/" + currentUser().uid).keepSynced(true)
+//        }
+        
         return Database.database()
     }
     

@@ -38,9 +38,13 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Bt-xWX">
-                        <rect key="frame" x="266" y="19" width="46" height="30"/>
-                        <state key="normal" title="Button"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Bt-xWX">
+                        <rect key="frame" x="287" y="21.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="QQI-fL-4Cj"/>
+                            <constraint firstAttribute="width" constant="25" id="ocN-Mg-nVo"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="icon-add"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -64,6 +68,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon-add" width="64" height="64"/>
         <image name="logo-23andme" width="380" height="380"/>
     </resources>
 </document>

@@ -19,8 +19,20 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadIntegrations()
+        
+        let warningController = storyboard?.instantiateViewController(withIdentifier: "CNWarning")
+        
+        warningController?.modalPresentationStyle = .overCurrentContext
+        warningController?.modalTransitionStyle = .crossDissolve
+        
+        present(warningController!, animated: true, completion: nil)
+    }
+    
     func loadIntegrations() {
-//        CNDatabase.integrationDatabaseReference().observe(.value, with:{(snapshot) in
+        CNDatabase.integrationDatabaseReference().observe(.value, with:{(snapshot) in
+            print(snapshot)
 //            var devices = [CNIntegration]()
 //            for itemSnapShot in snapshot.children {
 //                let fp = In(snapshot: itemSnapShot as! DataSnapshot)
@@ -33,7 +45,7 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
 //            }else{
 //                self.noContentLabel.isHidden = true;
 //            }
-//        })
+        })
     }
     
     func setupNavBar() {
@@ -46,16 +58,6 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
             // Fallback on earlier versions
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let warningController = storyboard?.instantiateViewController(withIdentifier: "CNWarningSync") as! CNWarningSyncViewController
-
-        warningController.modalPresentationStyle = .overCurrentContext
-        warningController.modalTransitionStyle = .crossDissolve
-
-        present(warningController, animated: true, completion: nil)
-    }
-    
 
     // MARK: - UITableViewDataSource
     

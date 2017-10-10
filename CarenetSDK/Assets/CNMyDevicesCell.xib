@@ -91,12 +91,11 @@
                         <constraints>
                             <constraint firstItem="gLH-df-ZTe" firstAttribute="centerY" secondItem="B8a-Ai-JsA" secondAttribute="centerY" id="7fd-Yc-tHF"/>
                             <constraint firstItem="wa4-xg-N96" firstAttribute="width" secondItem="wa4-xg-N96" secondAttribute="height" multiplier="1:1" id="8VB-yE-k1y"/>
-                            <constraint firstItem="T5d-jp-OVf" firstAttribute="leading" secondItem="KDU-Sw-Vbl" secondAttribute="leading" constant="25" id="BDf-kO-fLi"/>
                             <constraint firstItem="8tL-j0-m7Z" firstAttribute="centerY" secondItem="T5d-jp-OVf" secondAttribute="centerY" id="O6U-zv-1Lv"/>
                             <constraint firstItem="B8a-Ai-JsA" firstAttribute="centerY" secondItem="KDU-Sw-Vbl" secondAttribute="centerY" id="OrI-S8-7WF"/>
                             <constraint firstItem="8tL-j0-m7Z" firstAttribute="leading" secondItem="T5d-jp-OVf" secondAttribute="trailing" constant="37" id="T5M-Jp-Tom"/>
                             <constraint firstItem="gLH-df-ZTe" firstAttribute="leading" secondItem="wa4-xg-N96" secondAttribute="trailing" constant="36" id="TEe-NA-i52"/>
-                            <constraint firstAttribute="trailing" secondItem="gLH-df-ZTe" secondAttribute="trailing" constant="25" id="cni-Kp-c2b"/>
+                            <constraint firstItem="B8a-Ai-JsA" firstAttribute="centerX" secondItem="KDU-Sw-Vbl" secondAttribute="centerX" id="cIc-A8-D5w"/>
                             <constraint firstItem="wa4-xg-N96" firstAttribute="leading" secondItem="B8a-Ai-JsA" secondAttribute="trailing" constant="36" id="d7u-lj-WIH"/>
                             <constraint firstItem="wa4-xg-N96" firstAttribute="centerY" secondItem="B8a-Ai-JsA" secondAttribute="centerY" id="dEV-AA-dSo"/>
                             <constraint firstItem="T5d-jp-OVf" firstAttribute="centerY" secondItem="KDU-Sw-Vbl" secondAttribute="centerY" id="f2o-b7-ZMf"/>

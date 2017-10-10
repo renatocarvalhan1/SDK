@@ -1,18 +1,16 @@
 //
-//  CNWarningSyncViewController.swift
+//  CNWarningViewController.swift
 //  CarenetSDK
 //
-//  Created by Renato Carvalhan on 07/10/17.
+//  Created by Renato Carvalhan on 09/10/17.
 //
 
 import UIKit
 import VisualEffectView
 
-class CNWarningSyncViewController: CNBaseViewController {
-    
+class CNWarningViewController: CNBaseViewController {
+
     @IBOutlet var centerView: UIView!
-    @IBOutlet var viewWithOneButton: UIView!
-    @IBOutlet var viewWithTwoButtons: UIView!
     
     @IBOutlet var blurView: VisualEffectView!{
         didSet {
@@ -24,18 +22,18 @@ class CNWarningSyncViewController: CNBaseViewController {
     }
     
     var effect: UIVisualEffect!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerView.layer.cornerRadius = 5
         effect = blurView.effect
         blurView.effect = nil
         
         animateIn()
     }
-
+    
     override func viewDidLayoutSubviews() {
         centerView.layer.cornerRadius = 5
+        centerView.clipsToBounds = true
     }
     
     func animateIn(){
