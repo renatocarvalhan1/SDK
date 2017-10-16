@@ -38,21 +38,27 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Bt-xWX">
-                        <rect key="frame" x="287" y="21.5" width="25" height="25"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Bt-xWX">
+                        <rect key="frame" x="290" y="23" width="22" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="QQI-fL-4Cj"/>
-                            <constraint firstAttribute="width" constant="25" id="ocN-Mg-nVo"/>
+                            <constraint firstAttribute="width" constant="22" id="ocN-Mg-nVo"/>
+                            <constraint firstAttribute="width" secondItem="NfU-Bt-xWX" secondAttribute="height" multiplier="1:1" id="zcS-0z-osL"/>
                         </constraints>
+                        <color key="tintColor" red="0.031372549020000001" green="0.74509803919999995" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" title="Button" image="icon-add"/>
                     </button>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="MY2-rs-Ppt">
+                        <rect key="frame" x="290.5" y="24" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="6AX-b3-3AE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0Z5-N4-cIz"/>
                     <constraint firstItem="6AX-b3-3AE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="I3Q-m5-yYD"/>
+                    <constraint firstItem="MY2-rs-Ppt" firstAttribute="centerX" secondItem="NfU-Bt-xWX" secondAttribute="centerX" id="MTo-Gh-5L8"/>
                     <constraint firstItem="a8U-ZI-ahn" firstAttribute="leading" secondItem="iou-rg-iTp" secondAttribute="leading" id="Ooc-nq-Av3"/>
                     <constraint firstItem="iou-rg-iTp" firstAttribute="leading" secondItem="6AX-b3-3AE" secondAttribute="trailing" constant="8" id="UyY-O6-2Bu"/>
                     <constraint firstItem="a8U-ZI-ahn" firstAttribute="top" secondItem="iou-rg-iTp" secondAttribute="bottom" constant="2" id="WGW-w8-uUk"/>
+                    <constraint firstItem="MY2-rs-Ppt" firstAttribute="centerY" secondItem="NfU-Bt-xWX" secondAttribute="centerY" id="cEw-ov-JRh"/>
                     <constraint firstItem="iou-rg-iTp" firstAttribute="top" secondItem="6AX-b3-3AE" secondAttribute="top" constant="4" id="eCc-d2-Q8o"/>
                     <constraint firstItem="NfU-Bt-xWX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uvj-vI-uoj"/>
                     <constraint firstAttribute="trailing" secondItem="NfU-Bt-xWX" secondAttribute="trailing" constant="8" id="yQI-p4-kZE"/>
@@ -61,6 +67,7 @@
             <connections>
                 <outlet property="addButton" destination="NfU-Bt-xWX" id="OTN-YB-N04"/>
                 <outlet property="contentLabel" destination="a8U-ZI-ahn" id="lDq-fC-dPN"/>
+                <outlet property="loading" destination="MY2-rs-Ppt" id="RUS-dH-Xot"/>
                 <outlet property="logoView" destination="6AX-b3-3AE" id="psN-Sa-ddO"/>
                 <outlet property="titleLabel" destination="iou-rg-iTp" id="jzo-dl-Edw"/>
             </connections>
@@ -68,7 +75,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon-add" width="64" height="64"/>
+        <image name="icon-add" width="128" height="128"/>
         <image name="logo-23andme" width="380" height="380"/>
     </resources>
 </document>

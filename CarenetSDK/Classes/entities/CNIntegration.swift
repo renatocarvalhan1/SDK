@@ -6,9 +6,25 @@
 //
 
 import UIKit
+import FirebaseCommunity
 
 class CNIntegration: CNBaseEntity {
     
-    var iconURL: String?
-    var integrationName: String?
+    var devices: [String]?
+    var iconUrl: String?
+    var name: String?
+    
+    init?(snapshot: DataSnapshot) {
+        super.init()
+        if let data = snapshot.value as? [String : Any] {
+            self.dbId = data["integrationId"] as? String
+            self.createdAt = data["creationDate"] as? String
+            devices = data["devices"] as? [String]
+            iconUrl = data["iconURL"] as? String
+            name = data["integrationName"] as? String
+        } else {
+            return nil
+        }
+    }
+
 }

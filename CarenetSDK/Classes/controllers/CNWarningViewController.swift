@@ -31,11 +31,6 @@ class CNWarningViewController: CNBaseViewController {
         animateIn()
     }
     
-    override func viewDidLayoutSubviews() {
-        centerView.layer.cornerRadius = 5
-        centerView.clipsToBounds = true
-    }
-    
     func animateIn(){
         centerView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         centerView.alpha = 0

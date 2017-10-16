@@ -6,7 +6,10 @@
 //  Copyright (c) 2017 renatocarvalhan1. All rights reserved.
 //
 
-import UIKit 
+import UIKit
+import Fabric
+import Crashlytics
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Fabric.with([Crashlytics.self])
+        BITHockeyManager.shared().configure(withIdentifier: "1f7fc2933e5b404c8ed3e2a840eb528b")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
+
+
         return true
     }
 

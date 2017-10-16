@@ -3,6 +3,10 @@ platform :ios, '10.0'
 use_frameworks!
 
 target 'CarenetSDK-Test' do
+ 
   pod 'CarenetSDK', :path => '../'
-
+  pod 'Fabric'
+  pod 'Crashlytics'
+  pod 'HockeySDK'
+  
 end

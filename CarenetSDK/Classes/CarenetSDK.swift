@@ -16,14 +16,10 @@ public class CarenetSDK: NSObject {
         return instance
     }()
     
-    var baseUrl: String = {
-        "http://dev.crnt.com.br"
-    }()
-    
     var bundle: Bundle = {
         let bundleurl = Bundle(for: CarenetSDK.self).url(forResource: "CarenetSDK", withExtension: "bundle")
         
-        return Bundle.init(url: bundleurl!)!
+        return Bundle(url: bundleurl!)!
     }()
     
     var deviceID: String = {
@@ -31,14 +27,11 @@ public class CarenetSDK: NSObject {
     }()
     
     public func startSDKWithClientId() {
-        
-    
         FirebaseApp.configure()
         
         let storyboard = UIStoryboard(name: "SDK", bundle: bundle)
-        let centerController = UINavigationController(rootViewController: storyboard.instantiateInitialViewController()!)
+        let centerController = storyboard.instantiateInitialViewController()!
         
         UIApplication.shared.keyWindow?.rootViewController = centerController
     }
-
 }

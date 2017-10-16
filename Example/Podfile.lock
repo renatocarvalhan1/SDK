@@ -4,7 +4,11 @@ PODS:
     - FirebaseCommunity/Database
     - FirebaseCommunity/Storage
     - JVFloatLabeledTextField
+    - SDWebImage
     - VisualEffectView
+  - Crashlytics (3.9.0):
+    - Fabric (~> 1.7.0)
+  - Fabric (1.7.0)
   - FirebaseCommunity/Auth (0.1.3):
     - FirebaseCommunity/Core
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
@@ -30,26 +34,39 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - GTMSessionFetcher/Core (1.1.12)
+  - HockeySDK (5.0.0):
+    - HockeySDK/DefaultLib (= 5.0.0)
+  - HockeySDK/DefaultLib (5.0.0)
   - JVFloatLabeledTextField (1.2.1)
   - leveldb-library (1.18.3)
+  - SDWebImage (4.1.2):
+    - SDWebImage/Core (= 4.1.2)
+  - SDWebImage/Core (4.1.2)
   - VisualEffectView (3.0.0)
 
 DEPENDENCIES:
   - CarenetSDK (from `../`)
+  - Crashlytics
+  - Fabric
+  - HockeySDK
 
 EXTERNAL SOURCES:
   CarenetSDK:
     :path: ../
 
 SPEC CHECKSUMS:
-  CarenetSDK: f8e35a9c695b2c720b23d706a603d502d2b0f9a2
+  CarenetSDK: 71c3fedf8044b9d7daefb5ec210ca4fcd31d81e9
+  Crashlytics: 64aad5dd97249dd3ff94b979fea140144590cdd3
+  Fabric: e6be012366472553807dada21243c5ab8d904151
   FirebaseCommunity: 577bff60785dfe3fb214c8d3993477fc44286fb6
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  HockeySDK: 82bf8dcbe1af3c87c24dc98924fcf2e2ba5be8c4
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
+  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   VisualEffectView: d47d295c68bf1b8648aa8e7d6eb4acf6dc18ea12
 
-PODFILE CHECKSUM: 502f4ae72100e09507f62ef78f5db80beb3a0c43
+PODFILE CHECKSUM: eb0d254d5923dfa4d3200a4a0241c0993daab75d
 
 COCOAPODS: 1.3.1

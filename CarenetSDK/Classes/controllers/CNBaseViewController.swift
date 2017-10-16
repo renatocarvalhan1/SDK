@@ -14,5 +14,18 @@ public class CNBaseViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Dispositivos"
+        cnNavigationBar()
     }
+    
+    func cnNavigationBar() {
+        navigationController?.navigationBar.tintColor = paGreen
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedStringKey.foregroundColor : UIColor.black
+        ]
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    lazy var paGreen: UIColor = {
+        return UIColor(red: 8/255, green: 190/255, blue: 161/255, alpha: 1)
+    }()
 }

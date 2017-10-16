@@ -122,7 +122,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentLabel" destination="3qS-mp-o7s" id="G1b-9G-k7p"/>
+                <outlet property="deleteButton" destination="wa4-xg-N96" id="qNS-pY-AhM"/>
                 <outlet property="logoView" destination="Igt-QF-e2v" id="ukQ-2S-c2f"/>
+                <outlet property="syncButton" destination="B8a-Ai-JsA" id="yWj-Js-w1V"/>
                 <outlet property="titleLabel" destination="cVh-Oo-TBz" id="zmc-h3-FDz"/>
             </connections>
             <point key="canvasLocation" x="24" y="88"/>

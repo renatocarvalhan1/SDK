@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import FirebaseCommunity
 
 class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var tableView: UITableView!
+    
+    var integrationName: String!
+    
+    var devices: [CNDevices]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,19 +24,54 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .automatic
+            navigationItem.largeTitleDisplayMode = .never
         } else {
             // Fallback on earlier versions
         }
+        
+        loadDevices()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-//        let warningController = storyboard?.instantiateViewController(withIdentifier: "CNWarningSync") as! CNWarningSyncViewController
-//
-//        warningController.modalPresentationStyle = .overCurrentContext
-//        warningController.modalTransitionStyle = .crossDissolve
-//
-//        present(warningController, animated: true, completion: nil)
+    func loadDevices() {
+        var array = [CNDevices]()
+        CNDatabase.devicesDatabaseReference(integration: integrationName).observe(.value, with:{(snapshot) in
+            for itemSnapShot in snapshot.children {
+                let i = CNDevices(snapshot: itemSnapShot as! DataSnapshot)
+                array.append(i!)
+            }
+            self.devices = array
+            self.tableView.reloadData()
+        })
+    }
+    
+    @objc func add(_ sender: UIButton) {
+        if let cell = sender.superview?.superview as? CNDeviceCell {
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.addButton.alpha = 0
+                cell.loading.isHidden = false
+                cell.loading.startAnimating()
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                UIView.animate(withDuration: 0.3, animations: {
+                    cell.contentLabel.alpha = 0
+                }, completion: { (finished) in
+                    UIView.animate(withDuration: 0.3, animations: {
+                        cell.loading.isHidden = true
+                        cell.addButton.alpha = 1
+                        cell.contentLabel.alpha = 1
+                        cell.contentLabel.textColor = self.paGreen
+                        cell.contentLabel.text = "Já faz parte da sua lista"
+                        cell.addButton.setImage(UIImage(named: "icon-sync"), for: .normal)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            let controller = self.storyboard?.instantiateViewController(withIdentifier: "CNMyDevices") as! CNMyDevicesViewController
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        })
+                    })
+                })
+            })
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -42,12 +82,22 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
+        if devices == nil || devices.count == 0 { return 0 }
+        return devices.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CNDeviceCell" , for: indexPath) as! CNDeviceCell
+        let device = devices[indexPath.row]
+        
+        cell.logoView.sd_setImage(with: URL.init(string: device.iconUrl!), completed: nil)
+        cell.titleLabel.text = device.name
+        cell.contentLabel.textColor = UIColor.darkGray
+        cell.contentLabel.text = device.integrationId
+        cell.addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
+        cell.loading.isHidden = true
+        cell.loading.hidesWhenStopped = true
+        
         return cell
     }
     

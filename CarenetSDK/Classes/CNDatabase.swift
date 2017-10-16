@@ -57,6 +57,12 @@ class CNDatabase: NSObject {
     }
     
     static func userDevicesDatabaseReference() -> DatabaseReference {
-        return databaseReference().child("users").child(currentUser().uid).child("devices")
+        return databaseReference().child("users").child("3cGuDoyx5zThyjkPhHXg6Cx2mZj2").child("devices")
+//        return databaseReference().child("users").child(currentUser().uid).child("devices")
     }
+    
+    static func deviceConnectionDatabaseReference(device: String) -> DatabaseReference {
+        return userDevicesDatabaseReference().child(device).child("connection")
+    }
+
 }

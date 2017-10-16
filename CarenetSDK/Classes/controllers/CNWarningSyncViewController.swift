@@ -8,11 +8,28 @@
 import UIKit
 import VisualEffectView
 
+enum StatusSync {
+    case Progress
+    case Success
+    case Error
+    case NotFound
+}
+
 class CNWarningSyncViewController: CNBaseViewController {
     
     @IBOutlet var centerView: UIView!
     @IBOutlet var viewWithOneButton: UIView!
     @IBOutlet var viewWithTwoButtons: UIView!
+    @IBOutlet var firstButton: UIButton!
+    @IBOutlet var secondButton: UIButton!
+    @IBOutlet var syncLabel: UILabel!
+    @IBOutlet var logoView: UIImageView!
+    @IBOutlet var deviceNameLabel: UILabel!
+    @IBOutlet var syncView: UIImageView!
+    @IBOutlet var loading: UIActivityIndicatorView!
+    
+    var statusSync: StatusSync!
+    var connection: CNConnection!
     
     @IBOutlet var blurView: VisualEffectView!{
         didSet {
@@ -27,15 +44,45 @@ class CNWarningSyncViewController: CNBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerView.layer.cornerRadius = 5
         effect = blurView.effect
         blurView.effect = nil
+        statusSync = .Progress
         
+        logoView.sd_setImage(with: URL(string: connection.deviceIconURL!), completed: nil)
+        deviceNameLabel.text = connection.deviceDisplayName!
+        loading.hidesWhenStopped = true
+        
+        setLayout()
         animateIn()
     }
-
-    override func viewDidLayoutSubviews() {
-        centerView.layer.cornerRadius = 5
+    
+    func setLayout() {
+        switch statusSync {
+        case .Progress:
+            loading.startAnimating()
+            syncLabel.text = "Sincronizando..."
+            firstButton.setTitle("Cancel", for: .normal)
+            firstButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
+            viewWithTwoButtons.isHidden = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.statusSync = .Success
+                self.setLayout()
+            })
+            return
+        case .Success:
+            loading.stopAnimating()
+            syncLabel.text = "Sincronizado com sucesso"
+            syncView.image = UIImage.init(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil)
+            firstButton.setTitle("OK, obrigado!", for: .normal)
+            return
+        case .Error:
+            firstButton.setTitle("Cancel", for: .normal)
+            viewWithTwoButtons.isHidden = true
+            return
+        default:
+            return
+        }
     }
     
     func animateIn(){
@@ -56,7 +103,6 @@ class CNWarningSyncViewController: CNBaseViewController {
             self.centerView.alpha = 0
             
         }) { (finished) in
-            self.centerView.removeFromSuperview()
             self.dismiss(animated: false, completion: nil)
         }
     }
@@ -64,4 +110,5 @@ class CNWarningSyncViewController: CNBaseViewController {
     @IBAction func close(_ sender: Any) {
         animateOut()
     }
+
 }
