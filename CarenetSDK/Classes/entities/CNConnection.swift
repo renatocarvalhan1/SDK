@@ -10,19 +10,23 @@ import FirebaseCommunity
 
 struct CNConnection {
     
-    var deviceDisplayName: String?
-    var deviceFirmwareVersione: String?
-    var deviceIconURL: String?
-    var deviceName: String?
-    var deviceSerial: String?
-    var integrationMethod: String?
-    var lastLog: String?
-    var lastSyncStatus: String?
-    var lastSyncTime: String?
-    var macAddress: String?
-    var params: [String: String]?
+    var dbId: String?
+    
+    var deviceId: String
+    var deviceDisplayName: String
+    var deviceFirmwareVersione: String
+    var deviceIconURL: String
+    var deviceName: String
+    var deviceSerial: String
+    var integrationMethod: String
+    var lastLog: String
+    var lastSyncStatus: String
+    var lastSyncTime: String
+    var macAddress: String
+    var params: [String: String]
     
     init(data: [String: Any]) {
+        self.deviceId = data["deviceId"] as? String ?? ""
         self.deviceDisplayName = data["deviceDisplayName"] as? String ?? ""
         self.deviceFirmwareVersione = data["deviceFirmwareVersione"] as? String ?? ""
         self.deviceIconURL = data["deviceIconURL"] as? String ?? ""

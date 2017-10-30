@@ -48,8 +48,8 @@ class CNWarningSyncViewController: CNBaseViewController {
         blurView.effect = nil
         statusSync = .Progress
         
-        logoView.sd_setImage(with: URL(string: connection.deviceIconURL!), completed: nil)
-        deviceNameLabel.text = connection.deviceDisplayName!
+        logoView.sd_setImage(with: URL(string: connection.deviceIconURL), completed: nil)
+        deviceNameLabel.text = connection.deviceDisplayName
         loading.hidesWhenStopped = true
         
         setLayout()

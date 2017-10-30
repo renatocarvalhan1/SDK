@@ -15,7 +15,7 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
     
     var integrations: [CNIntegration]?
     var filteredIntegrations = [CNIntegration]()
-    let searchController = UISearchController.init(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     
      override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,30 +24,53 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         setupNavBar()
-        showWarning()
-        loadIntegrations()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadIntegrations()
+    }
+    
     func loadIntegrations() {
-        var array = [CNIntegration]()
-        CNDatabase.integrationDatabaseReference().observe(.value, with:{(snapshot) in
-            for itemSnapShot in snapshot.children {
-                let i = CNIntegration(snapshot: itemSnapShot as! DataSnapshot)
-                array.append(i!)
-            }
-            self.integrations = array
-            self.tableView.reloadData()
-        })
+        integrations = [CNIntegration]()
+        
+        CNDatabase.fetchConnectionByUser { (connections) in
+            if connections.count == 0 { self.showWarning() }
+            
+            CNDatabase.integrationDatabaseReference().observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let values = snapshot.value as? [String: Any] else { return }
+                values.forEach({ (key, value) in
+                    guard let data = value as? [String: Any] else { return }
+                    var integration = CNIntegration(data: data)
+                    integration.id = key
+                    
+                    for (_, device) in integration.devices.enumerated() {
+                        if let deviceId = device.key as String? {
+                            let connectedByUser = connections.contains(where: { (connection) -> Bool in
+                                connection.deviceId == deviceId
+                            })
+                            if !connectedByUser {
+                                integration.connectedByUser = false
+                                break
+                            } else {
+                                integration.connectedByUser = true
+                            }
+                        }
+                    }
+                    self.integrations!.append(integration)
+                })
+                self.tableView.reloadData()
+            })
+        }
     }
     
     func setupNavBar() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.tintColor = cnGreen
+        
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.searchController = searchController
@@ -64,44 +87,10 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
         
         present(warningController!, animated: true, completion: nil)
     }
-    
-    @objc func add(_ sender: UIButton) {
-        if let cell = sender.superview?.superview as? CNDeviceCell {
-            UIView.animate(withDuration: 0.3, animations: {
-                cell.addButton.alpha = 0
-                cell.loading.alpha = 1
-                cell.loading.isHidden = false
-                cell.loading.startAnimating()
-            })
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                UIView.animate(withDuration: 0.3, animations: {
-                    cell.contentLabel.alpha = 0
-                }, completion: { (finished) in
-                    UIView.animate(withDuration: 0.3, animations: {
-                        cell.loading.isHidden = true
-                        cell.loading.hidesWhenStopped = true
-                        cell.loading.alpha = 0
-                        cell.addButton.alpha = 1
-                        cell.contentLabel.alpha = 1
-                        cell.contentLabel.textColor = self.paGreen
-                        cell.contentLabel.text = "Já faz parte da sua lista"
-                        cell.addButton.setImage(UIImage.init(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil), for: .normal)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            let controller = self.storyboard?.instantiateViewController(withIdentifier: "CNMyDevices") as! CNMyDevicesViewController
-                            self.navigationController?.pushViewController(controller, animated: true)
-                        })
-                    })
-                })
-            })
-        }
-    }
 
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
@@ -122,14 +111,28 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
             integration = integrations![indexPath.row]
         }
         
-        cell.logoView?.sd_setImage(with: URL.init(string: integration.iconUrl!), completed: nil)
+        cell.logoView?.sd_setImage(with: URL(string: integration.iconUrl), completed: nil)
         cell.titleLabel.text = integration.name
-        cell.contentLabel.textColor = UIColor.darkGray
-        cell.contentLabel.text = integration.devices!.count > 1 ? "Todos os dispositivos" : integration.dbId
-        cell.addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
-        
         cell.loading.isHidden = true
         cell.loading.hidesWhenStopped = true
+        
+        if integration.connectedByUser {
+            cell.contentLabel.textColor = self.cnGreen
+            cell.contentLabel.text = "Já faz parte da sua lista"
+            cell.statusIcon.image = UIImage(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil)
+            cell.statusIcon.isHidden = false
+            cell.accessoryType = .none
+        } else {
+            cell.contentLabel.textColor = UIColor.darkGray
+            cell.contentLabel.text = integration.subtitle
+            if integration.devices.count > 1 {
+                cell.statusIcon.isHidden = true
+                cell.accessoryType = .disclosureIndicator
+            } else {
+                cell.statusIcon.image = UIImage(named: "icon-add", in: CarenetSDK.shared.bundle, compatibleWith: nil)
+            }
+            
+        }
         
         return cell
     }
@@ -148,20 +151,84 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
             integration = integrations![indexPath.row]
         }
         
-        if integration.devices!.count > 1 {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "CNDevices") as! CNDevicesViewController
-            controller.integrationName = integration.dbId
-            self.navigationController?.pushViewController(controller, animated: true)
+        if !integration.connectedByUser {
+            let cell = tableView.cellForRow(at: indexPath) as! CNDeviceCell
+            
+            if integration.devices.count > 1 {
+                let controller = self.storyboard?.instantiateViewController(withIdentifier: "CNDevices") as! CNDevicesViewController
+                controller.integration = integration
+                
+                self.navigationController?.pushViewController(controller, animated: true)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    cell.statusIcon.alpha = 0
+                }, completion: { (complete) in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cell.loading.alpha = 1
+                        cell.loading.isHidden = false
+                        cell.loading.startAnimating()
+                    })
+                })
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    for (index, device) in integration.devices.enumerated() {
+                        let key = device.key
+                        CNDatabase.devicesDatabaseReference(device: key).observeSingleEvent(of: .value, with: { (snapshot) in
+                            guard let data = snapshot.value as? [String: Any] else { return }
+                            var device = CNDevice(data: data)
+                            device.id = key
+                            let connection = [
+                                    "deviceId" : device.id!,
+                                    "deviceDisplayName" : device.name,
+                                    "deviceFirmwareVersione" : "",
+                                    "deviceName" : device.name,
+                                    "deviceSerial" : "",
+                                    "integrationMethod" : "",
+                                    "lastLog" : "",
+                                    "lastSyncStatus" : "",
+                                    "lastSyncTime" : "",
+                                    "macAddress" : "",
+                                    "params" : ""
+                                ] as [String : Any]
+                            
+                            CNDatabase.connectionsDatabaseReference().childByAutoId().updateChildValues(connection)
+                            
+                            // avoid duplicate action
+                            if integration.devices.count == index + 1 {
+                                self.animateCellAndShowMyDevices(cell: cell)
+                            }
+                        })
+                    }
+                })
+            }
         }
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Private instance methods
     
+    func animateCellAndShowMyDevices(cell: CNDeviceCell) {
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.contentLabel.alpha = 0
+            cell.loading.alpha = 0
+        }, completion: { (complete) in
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.loading.stopAnimating()
+                cell.statusIcon.alpha = 1
+                cell.contentLabel.alpha = 1
+                cell.contentLabel.textColor = self.cnGreen
+                cell.contentLabel.text = "Já faz parte da sua lista"
+                cell.statusIcon.image = UIImage(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                CarenetSDK.shared.showMainViewController()
+            })
+        })
+    }
+    
     func filterContentForSearchText(_ searchText: String) {
         filteredIntegrations = self.integrations!.filter({( integration : CNIntegration) -> Bool in
-            return integration.name!.lowercased().contains(searchText.lowercased())
+            return integration.name.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
     }

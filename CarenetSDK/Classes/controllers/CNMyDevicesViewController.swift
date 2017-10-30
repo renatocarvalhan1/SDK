@@ -28,22 +28,23 @@ class CNMyDevicesViewController: CNBaseViewController, UITableViewDelegate, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadconnections()
+        super.viewWillAppear(animated)
+        loadConnections()
     }
     
-    func loadconnections() {
-        var array = [CNConnection]()
+    func loadConnections() {
+        connections = [CNConnection]()
         
-        CNDatabase.userDevicesDatabaseReference().observeSingleEvent(of: .value, with: { (snapshot) in
-            let dictionaries = snapshot.value as? [String: Any]
-            dictionaries?.forEach({ (key, value) in
-                CNDatabase.deviceConnectionDatabaseReference(device: key).observe(.value, with: { (snapshot) in
-                    let c = CNConnection(data: snapshot.value as! [String: Any])
-                    array.append(c)
-                    self.connections = array
-                    self.tableView.reloadData()
-                })
+        CNDatabase.connectionsDatabaseReference().observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            
+            allObjects.forEach({ (snapshot) in
+                guard let dictionary = snapshot.value as? [String: Any] else { return }
+                var connection = CNConnection(data: dictionary)
+                connection.dbId = snapshot.key
+                self.connections.append(connection)
             })
+            self.tableView.reloadData()
         })
     }
     
@@ -57,6 +58,25 @@ class CNMyDevicesViewController: CNBaseViewController, UITableViewDelegate, UITa
                 warningSyncController.modalTransitionStyle = .crossDissolve
                 
                 present(warningSyncController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func removeConnection(_ sender: UIButton) {
+        if let cell = sender.superview?.superview?.superview as? CNMyDevicesCell {
+            if let indexPath = tableView.indexPath(for: cell) {
+                let connection = connections[indexPath.row]
+                CNDatabase.connectionsDatabaseReference().child(connection.dbId!).removeValue()
+                
+                connections.remove(at: indexPath.row)
+                
+                selectedIndexPath = nil
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+                if connections.count == 0 {
+                    CarenetSDK.shared.showMainViewController()
+                }
             }
         }
     }
@@ -77,10 +97,11 @@ class CNMyDevicesViewController: CNBaseViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "CNMyDevicesCell" , for: indexPath) as! CNMyDevicesCell
         let connection = connections[indexPath.row]
         
-        cell.logoView.sd_setImage(with: URL(string: connection.deviceIconURL!), completed: nil)
+        cell.logoView.sd_setImage(with: URL(string: connection.deviceIconURL), completed: nil)
         cell.titleLabel.text = connection.deviceDisplayName
-        cell.contentLabel.text = "Última sincronização \(connection.lastSyncTime!)"
+        cell.contentLabel.text = "Última sincronização \(connection.lastSyncTime)"
         cell.syncButton.addTarget(self, action: #selector(sync(_:)), for: .touchUpInside)
+        cell.deleteButton.addTarget(self, action: #selector(removeConnection(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -110,7 +131,7 @@ class CNMyDevicesViewController: CNBaseViewController, UITableViewDelegate, UITa
                 selectedIndexPath = indexPath
             }
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.reloadRows(at: [indexPath], with: .fade)
         
         tableView.scrollToRow(at: indexPath, at: .none, animated: true)
     }

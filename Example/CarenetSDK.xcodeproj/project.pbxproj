@@ -32,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0DE3DF101FA75CEF00EAAB4E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		293348A05906D246D2C3E45F /* CarenetSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CarenetSDK.podspec; path = ../CarenetSDK.podspec; sourceTree = "<group>"; };
 		2B5A81F154B02BF616723BD1 /* Pods-CarenetSDK-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarenetSDK-Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarenetSDK-Test/Pods-CarenetSDK-Test.release.xcconfig"; sourceTree = "<group>"; };
 		4A33DD1DBD208709064893E3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		5FCEBA88C4AEDE07759454F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DE3DF101FA75CEF00EAAB4E /* UIKit.framework */,
 				5FEB267E4E1001B4E0250A37 /* Pods_CarenetSDK_Test.framework */,
 			);
 			name = Frameworks;

@@ -12,7 +12,7 @@ class CNDeviceCell: CNBaseCell {
     @IBOutlet var logoView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var addButton: UIButton!
+    @IBOutlet var statusIcon: UIImageView!
     @IBOutlet var loading: UIActivityIndicatorView!
-    @IBOutlet var syncedView: UIImageView!
+    
 }

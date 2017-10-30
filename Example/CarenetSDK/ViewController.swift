@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        CarenetSDK.shared.startSDKWithClientId()
+        CarenetSDK.shared.startSDK(with: "sdk@carenet.com", password: "123123")
     }
 
 }

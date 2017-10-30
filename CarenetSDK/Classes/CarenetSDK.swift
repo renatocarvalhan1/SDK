@@ -13,6 +13,7 @@ public class CarenetSDK: NSObject {
     
     public static var shared: CarenetSDK = {
         let instance = CarenetSDK()
+        FirebaseApp.configure()
         return instance
     }()
     
@@ -26,12 +27,38 @@ public class CarenetSDK: NSObject {
       UIDevice.current.identifierForVendor!.uuidString
     }()
     
-    public func startSDKWithClientId() {
-        FirebaseApp.configure()
+    public func startSDK(with email: String!, password: String!) {
+        CNDatabase.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if let err = error {
+                print("Failed to sign in with email:", err)
+                return
+            }
+        }
         
+        if CNDatabase.currentUser() != nil {
+            self.showMainViewController(startSDK: true)
+        }
+    }
+    
+    func showMainViewController(startSDK: Bool = false) {
         let storyboard = UIStoryboard(name: "SDK", bundle: bundle)
-        let centerController = storyboard.instantiateInitialViewController()!
+        var navController = storyboard.instantiateInitialViewController()
         
-        UIApplication.shared.keyWindow?.rootViewController = centerController
+        CNDatabase.fetchConnectionByUser(completion: { (connections) in
+            if connections.count > 0 {
+                let controller = storyboard.instantiateInitialViewController() as! CNMyDevicesViewController
+                navController = UINavigationController(rootViewController: controller)
+            } else {
+                let controller = storyboard.instantiateViewController(withIdentifier: "CNIntegrations") as! CNIntegrationsViewController
+                navController = UINavigationController(rootViewController: controller)
+            }
+            
+            let window = UIApplication.shared.keyWindow!
+            UIView.transition(with: window, duration: 0.5, options: startSDK ? .transitionCrossDissolve : .transitionFlipFromRight, animations: {
+                DispatchQueue.main.async {
+                    window.rootViewController = navController
+                }
+            })
+        })
     }
 }

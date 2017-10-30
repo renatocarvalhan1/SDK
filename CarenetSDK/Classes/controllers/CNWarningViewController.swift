@@ -49,7 +49,6 @@ class CNWarningViewController: CNBaseViewController {
             self.centerView.alpha = 0
             
         }) { (finished) in
-            self.centerView.removeFromSuperview()
             self.dismiss(animated: false, completion: nil)
         }
     }
