@@ -38,14 +38,13 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQZ-qE-ghv">
-                        <rect key="frame" x="297" y="26.5" width="15" height="15"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-black" translatesAutoresizingMaskIntoConstraints="NO" id="h3T-si-Xl9">
+                        <rect key="frame" x="296" y="26" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="aQZ-qE-ghv" secondAttribute="height" multiplier="1:1" id="RDd-dp-iq6"/>
-                            <constraint firstAttribute="width" constant="15" id="fZr-em-U54"/>
+                            <constraint firstAttribute="width" secondItem="h3T-si-Xl9" secondAttribute="height" multiplier="1:1" id="0DD-iO-BZm"/>
+                            <constraint firstAttribute="width" constant="15" id="2dG-wo-Vmw"/>
                         </constraints>
-                        <state key="normal" title="Button" image="arrow-black"/>
-                    </button>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDU-Sw-Vbl">
                         <rect key="frame" x="0.0" y="68.5" width="320" height="49.5"/>
                         <subviews>
@@ -108,8 +107,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="KDU-Sw-Vbl" secondAttribute="bottom" constant="-0.5" id="8GF-AO-22K"/>
                     <constraint firstItem="KDU-Sw-Vbl" firstAttribute="leading" secondItem="Tmp-gp-KG5" secondAttribute="leading" id="8Vj-Jp-zbw"/>
-                    <constraint firstItem="aQZ-qE-ghv" firstAttribute="centerY" secondItem="Igt-QF-e2v" secondAttribute="centerY" id="Ary-hx-jIB"/>
-                    <constraint firstAttribute="trailing" secondItem="aQZ-qE-ghv" secondAttribute="trailing" constant="8" id="HQq-fs-Nwa"/>
+                    <constraint firstAttribute="trailing" secondItem="h3T-si-Xl9" secondAttribute="trailing" constant="9" id="Gm0-uv-FsT"/>
                     <constraint firstItem="cVh-Oo-TBz" firstAttribute="leading" secondItem="Igt-QF-e2v" secondAttribute="trailing" constant="8" id="Puu-aE-9xq"/>
                     <constraint firstItem="3qS-mp-o7s" firstAttribute="leading" secondItem="cVh-Oo-TBz" secondAttribute="leading" id="QD4-m1-Zfw"/>
                     <constraint firstItem="3qS-mp-o7s" firstAttribute="top" secondItem="cVh-Oo-TBz" secondAttribute="bottom" constant="2" id="TeO-dI-LVT"/>
@@ -118,9 +116,11 @@
                     <constraint firstItem="KDU-Sw-Vbl" firstAttribute="top" secondItem="3qS-mp-o7s" secondAttribute="bottom" constant="12" id="aTg-f8-XCd"/>
                     <constraint firstAttribute="trailing" secondItem="KDU-Sw-Vbl" secondAttribute="trailing" id="idT-lf-5TP"/>
                     <constraint firstItem="Igt-QF-e2v" firstAttribute="leading" secondItem="Tmp-gp-KG5" secondAttribute="leading" constant="8" id="lHY-4Y-kbs"/>
+                    <constraint firstItem="h3T-si-Xl9" firstAttribute="centerY" secondItem="Igt-QF-e2v" secondAttribute="centerY" id="u7c-Kj-aMK"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="arrowView" destination="h3T-si-Xl9" id="rue-t4-pdU"/>
                 <outlet property="contentLabel" destination="3qS-mp-o7s" id="G1b-9G-k7p"/>
                 <outlet property="deleteButton" destination="wa4-xg-N96" id="qNS-pY-AhM"/>
                 <outlet property="logoView" destination="Igt-QF-e2v" id="ukQ-2S-c2f"/>

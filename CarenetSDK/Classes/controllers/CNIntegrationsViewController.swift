@@ -15,6 +15,7 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
     
     var integrations: [CNIntegration]?
     var filteredIntegrations = [CNIntegration]()
+    
     let searchController = UISearchController(searchResultsController: nil)
     
      override func viewDidLoad() {
@@ -24,7 +25,6 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         setupNavBar()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,14 +47,15 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
                     
                     for (_, device) in integration.devices.enumerated() {
                         if let deviceId = device.key as String? {
+                            integration.connectedByUser = true
+                            
                             let connectedByUser = connections.contains(where: { (connection) -> Bool in
                                 connection.deviceId == deviceId
                             })
+                            
                             if !connectedByUser {
                                 integration.connectedByUser = false
                                 break
-                            } else {
-                                integration.connectedByUser = true
                             }
                         }
                     }
@@ -131,9 +132,7 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
             } else {
                 cell.statusIcon.image = UIImage(named: "icon-add", in: CarenetSDK.shared.bundle, compatibleWith: nil)
             }
-            
         }
-        
         return cell
     }
     
@@ -171,15 +170,20 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                    for (index, device) in integration.devices.enumerated() {
+                    for (_, device) in integration.devices.enumerated() {
                         let key = device.key
                         CNDatabase.devicesDatabaseReference(device: key).observeSingleEvent(of: .value, with: { (snapshot) in
                             guard let data = snapshot.value as? [String: Any] else { return }
                             var device = CNDevice(data: data)
                             device.id = key
-                            let connection = [
+                            
+                            var connection = [String : Any]()
+                            switch device.connectionType {
+                            case .Bluetooth:
+                                connection = [
                                     "deviceId" : device.id!,
                                     "deviceDisplayName" : device.name,
+                                    "deviceIconURL" : device.iconUrl,
                                     "deviceFirmwareVersione" : "",
                                     "deviceName" : device.name,
                                     "deviceSerial" : "",
@@ -189,14 +193,31 @@ class CNIntegrationsViewController: CNBaseViewController, UITableViewDelegate, U
                                     "lastSyncTime" : "",
                                     "macAddress" : "",
                                     "params" : ""
-                                ] as [String : Any]
+                                    ] as [String : Any]
+                                break
+                            case .Cloud:
+//                                let connection = [
+//                                    "deviceId" : device.id!,
+//                                    "deviceDisplayName" : device.name,
+//                                    "deviceIconURL" : device.iconUrl,
+//                                    "creationDate" : "",
+//                                    "deviceName" : device.name,
+//                                    "expirationDate" : "",
+//                                    "externalUserId" : "",
+//                                    "externalUserSecret" : "",
+//                                    "externalUserToken:" : "",
+//                                    "lastSyncStatus" : "",
+//                                    "lastSyncTime" : ""
+//                                    ] as [String : Any]
+                                return
+                            default:
+                                break
+                            }
                             
                             CNDatabase.connectionsDatabaseReference().childByAutoId().updateChildValues(connection)
-                            
-                            // avoid duplicate action
-                            if integration.devices.count == index + 1 {
-                                self.animateCellAndShowMyDevices(cell: cell)
-                            }
+        
+                            self.animateCellAndShowMyDevices(cell: cell)
+
                         })
                     }
                 })

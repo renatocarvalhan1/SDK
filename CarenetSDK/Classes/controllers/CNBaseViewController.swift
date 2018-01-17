@@ -8,13 +8,17 @@
 
 import UIKit
 
-public class CNBaseViewController: UIViewController {
+public class CNBaseViewController: UIViewController, CNCBCentralManagerDelegate {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Dispositivos"
         cnNavigationBar()
+        
+        let manager = CNCBCentralManager.shared
+        manager.delegate = self
+        manager.start()
     }
     
     func cnNavigationBar() {
@@ -28,4 +32,8 @@ public class CNBaseViewController: UIViewController {
     lazy var cnGreen: UIColor = {
         return UIColor(red: 8/255, green: 190/255, blue: 161/255, alpha: 1)
     }()
+    
+    func requestNotFound() {
+        print("Not Found")
+    }
 }

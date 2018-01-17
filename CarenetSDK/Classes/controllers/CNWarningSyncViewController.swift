@@ -73,7 +73,7 @@ class CNWarningSyncViewController: CNBaseViewController {
         case .Success:
             loading.stopAnimating()
             syncLabel.text = "Sincronizado com sucesso"
-            syncView.image = UIImage.init(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil)
+            syncView.image = UIImage(named: "icon-checked", in: CarenetSDK.shared.bundle, compatibleWith: nil)
             firstButton.setTitle("OK, obrigado!", for: .normal)
             return
         case .Error:

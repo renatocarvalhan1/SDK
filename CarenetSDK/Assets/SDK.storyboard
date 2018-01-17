@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="30P-Ju-l1b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="30P-Ju-l1b">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -374,6 +374,39 @@
             </objects>
             <point key="canvasLocation" x="2808.8000000000002" y="915.29235382308855"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="3Ql-E1-79k">
+            <objects>
+                <viewController id="xaA-ty-dwP" customClass="CNWebViewController" customModule="CarenetSDK" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V6h-Mp-kth"/>
+                        <viewControllerLayoutGuide type="bottom" id="nZa-67-Mfn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yun-24-xmD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9G4-SI-zRh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9G4-SI-zRh" firstAttribute="centerX" secondItem="Yun-24-xmD" secondAttribute="centerX" id="Bwc-hG-gyN"/>
+                            <constraint firstItem="9G4-SI-zRh" firstAttribute="centerY" secondItem="Yun-24-xmD" secondAttribute="centerY" id="F41-Ah-vQ2"/>
+                            <constraint firstItem="9G4-SI-zRh" firstAttribute="width" secondItem="Yun-24-xmD" secondAttribute="width" id="PVV-pO-pVf"/>
+                            <constraint firstItem="9G4-SI-zRh" firstAttribute="height" secondItem="Yun-24-xmD" secondAttribute="height" id="eJk-KM-mhD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="9G4-SI-zRh" id="McO-kn-Jqv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3LZ-kB-cTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3608.8000000000002" y="914.392803598201"/>
+        </scene>
         <!--Integrations View Controller-->
         <scene sceneID="0ur-aE-00h">
             <objects>
@@ -446,6 +479,9 @@
                                 <state key="normal" title="Sincronizar Todos">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="syncAll:" destination="30P-Ju-l1b" eventType="touchUpInside" id="dSG-id-wd3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -468,6 +504,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="syncButton" destination="yik-nD-NgK" id="X7m-S8-VeS"/>
                         <outlet property="tableView" destination="gGD-6M-cnj" id="cIa-Kh-xTT"/>
                     </connections>
                 </viewController>

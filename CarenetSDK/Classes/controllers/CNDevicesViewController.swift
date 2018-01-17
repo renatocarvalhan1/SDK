@@ -138,6 +138,7 @@ class CNDevicesViewController: CNBaseViewController, UITableViewDataSource, UITa
                 let connection = [
                         "deviceId" : device.id!,
                         "deviceDisplayName" : device.name,
+                        "deviceIconURL" : device.iconUrl,
                         "deviceFirmwareVersione" : "",
                         "deviceName" : device.name,
                         "deviceSerial" : "",

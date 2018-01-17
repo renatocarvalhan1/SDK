@@ -20,7 +20,7 @@ class CNDatabase: NSObject {
     }
     
     static func currentUser() -> User? {
-        return auth().currentUser!
+        return auth().currentUser
     }
     
     static func database() -> Database {

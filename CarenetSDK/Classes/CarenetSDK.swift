@@ -33,9 +33,7 @@ public class CarenetSDK: NSObject {
                 print("Failed to sign in with email:", err)
                 return
             }
-        }
-        
-        if CNDatabase.currentUser() != nil {
+            
             self.showMainViewController(startSDK: true)
         }
     }

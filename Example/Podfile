@@ -4,9 +4,9 @@ use_frameworks!
 
 target 'CarenetSDK-Test' do
  
-  pod 'CarenetSDK', :path => '../'
+  pod 'CarenetSDK', :podspec => '../CarenetSDK.podspec'
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'HockeySDK'
-  
+
 end

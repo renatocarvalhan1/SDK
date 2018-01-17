@@ -10,25 +10,30 @@ Pod::Spec.new do |s|
   s.name             = 'CarenetSDK'
   s.version          = '0.1.0'
   s.summary          = 'A short description of CarenetSDK.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/renatocarvalhan1/CarenetSDK'
+  s.homepage         = 'https://github.com/renatocarvalhan1/SDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'renatocarvalhan1' => 'rcarvalhan@gmail.com' }
-  s.source           = { :git => 'https://github.com/renatocarvalhan1/CarenetSDK.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/renatocarvalhan1/SDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
   s.ios.deployment_target = '9.0'
+  s.platform = :ios
+  s.ios.framework = 'UIKit'
+  s.requires_arc = true
+  s.default_subspecs = 'All'
+  s.ios.vendored_frameworks = 'FirebaseUIFrameworks/*/Frameworks/*.framework'
+
+  s.subspec 'All' do |all|
+    all.platform = :ios, '9.0'
+    all.dependency "FirebaseUI"
+    all.dependency "JVFloatLabeledTextField"
+    all.dependency "VisualEffectView"
+    all.dependency "SDWebImage"
+  end
 
   s.source_files = 'CarenetSDK/Classes/**/*'
   
@@ -37,11 +42,5 @@ TODO: Add long description of the pod here.
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-   s.frameworks = 'UIKit'
-    s.dependency "FirebaseCommunity/Database"
-    s.dependency "FirebaseCommunity/Auth"
-    s.dependency "FirebaseCommunity/Storage"
-    s.dependency "JVFloatLabeledTextField"
-    s.dependency "VisualEffectView"
-    s.dependency "SDWebImage"
+    
 end
